@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <record model="ir.ui.view" id="iti_lab.station_list">
+      <field name="name">iti_lab list</field>
+      <field name="model">iti_lab.station</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+        
+        </tree>
+      </field>
+    </record>
+
+     <record model="ir.ui.view" id="iti_lab.station_form">
+      <field name="name">iti_lab list</field>
+      <field name="model">iti_lab.station</field>
+      <field name="arch" type="xml">
+        <form>
+        <sheet>
+        <group>
+          <h1><field name="name"/></h1>
+         <field name="calls">
+         <tree>
+          <field name="source"/>
+          <field name="duration"/> 
+
+         </tree>
+         </field>
+          </group>
+        </sheet>
+   
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="iti_lab.station_action_window">
+      <field name="name">iti_lab window</field>
+      <field name="res_model">iti_lab.station</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+      <!-- <menuitem name="station" id="iti_lab.menu_2" parent="iti_lab.menu_root"/> -->
+
+    <!-- actions -->
+
+    <menuitem name="station" id="iti_lab.menu_1_station_list" parent="iti_lab.menu_1"
+              action="iti_lab.station_action_window"/>
+    </data>
+
+</odoo>

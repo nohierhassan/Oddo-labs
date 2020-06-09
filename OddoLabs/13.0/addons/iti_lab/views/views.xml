@@ -1,0 +1,168 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="iti_lab.list">
+      <field name="name">iti_lab list</field>
+      <field name="model">iti_lab.calls</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="start_time"/>
+          <field name="stop_time"/>
+          <field name="station"/>
+          <field name="source"/>
+          <field name="destination"/>
+          <field name="duration" 
+          widget="float_time"
+          />
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+ <!-- form -->
+ <record model="ir.ui.view" id="iti_lab.form">
+      <field name="name">iti_lab form</field>
+      <field name="model">iti_lab.calls</field>
+      <field name="arch" type="xml">
+        <form>
+        <sheet>
+        <group>
+          <h1><field name="name"/></h1>
+          <field name="start_time"/>
+          <field name="stop_time"/>
+          <field name="station"/>
+          <field name="source"/>
+          <field name="destination"/>
+          <field name="duration" 
+          widget="float_time"
+          />
+          
+          <field name="tags" widget="many2many_tags" />
+          <field name="state"/>
+
+          
+          </group>
+        </sheet>
+   
+        </form>
+      </field>
+    </record>
+
+     <record model="ir.ui.view" id="iti_lab.calendar">
+      <field name="name">iti_lab list</field>
+      <field name="model">iti_lab.calls</field>
+      <field name="arch" type="xml">
+        <calendar date_start="start_time" date_stop="stop_time"> 
+          <field name="destination"/>
+          <field name="duration" 
+          widget="float_time"
+          />
+        </calendar>
+      </field>
+    </record>
+
+
+     <record model="ir.ui.view" id="iti_lab.graph">
+      <field name="name">iti_lab list</field>
+      <field name="model">iti_lab.calls</field>
+      <field name="arch" type="xml">
+        <graph > 
+          <field name="start_time"/>
+          <field name="duration" 
+          type="measure"
+          />
+        </graph>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="iti_lab.search">
+      <field name="name">iti_lab search</field>
+      <field name="model">iti_lab.calls</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name"/>
+         
+          <field name="station"/>
+          <field name="source"/>
+          <field name="destination"/>
+          <filter name="invoiced" string="Invoiced"
+            
+            domain="[('state', '=', 'invoiced')]"
+            />
+            <filter name="draft" string="Draft"
+            
+            domain="[('state', '=', 'draft')]"
+            />
+            
+         <filter name="current_month" string="Start Time"
+            date="start_time"/>
+
+              <group string="Group By">
+             <filter name="group_by_state" string="Status"
+                context="{'group_by': 'state'}"/>
+    </group>
+        </search>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="iti_lab.kanban">
+      <field name="name">iti_lab kanban</field>
+      <field name="model">iti_lab.calls</field>
+      <field name="arch" type="xml">
+        <kanban>
+       
+          <field name="name"/>
+          <field name="start_time"/>
+          <field name="stop_time"/>
+          <field name="station"/>
+          <field name="source"/>
+          <field name="destination"/>         
+          <field name="state"/>
+          <templates>
+        
+            <t t-name="kanban-box">
+                <!-- template code -->
+                <div>
+                 <strong><field name="name"/></strong> 
+                  <field name="start_time"/>
+                  <field name="stop_time"/>
+                </div>
+            </t>
+       
+          
+            
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="iti_lab.action_window">
+      <field name="name">iti_lab window</field>
+      <field name="res_model">iti_lab.calls</field>
+      <field name="view_mode">tree,form,kanban,calendar,graph</field>
+    </record>
+
+
+    
+
+    <!-- Top menu item -->
+
+    <menuitem name="call center" id="iti_lab.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="calls" id="iti_lab.menu_1" parent="iti_lab.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="List" id="iti_lab.menu_1_list" parent="iti_lab.menu_1"
+              action="iti_lab.action_window"/>
+   
+
+  </data>
+</odoo>
